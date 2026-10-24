@@ -1,0 +1,7 @@
+.env
+.vercel
+__pycache__/
+.claude/
+
+.vercel
+.env*

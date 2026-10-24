@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bolo Stage</title>
+  <meta name="description" content="Presentation mode: the board mirrors the presenter's phone while they speak to Bolo.">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Sans+Gurmukhi:wght@400;600;700&family=Noto+Sans+Oriya:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="stage.css">
+</head>
+<body class="board">
+  <div id="unlock" class="unlock">
+    <div class="brand huge">bolo<span class="dot"></span></div>
+    <button class="chip primary">Start the stage</button>
+    <p>One tap lets the board play Bolo's voice.</p>
+  </div>
+
+  <div class="desk">
+    <aside class="feed">
+      <div id="pair" class="pair">
+        <div class="brand big">bolo<span class="dot"></span></div>
+        <p class="desk-line">Speak it. Snap it.<br>It's an app.</p>
+        <form id="code-form" class="code-form" autocomplete="off">
+          <label for="code-input">Code from the presenter's phone</label>
+          <div class="code-row">
+            <input id="code-input" type="password" inputmode="text" maxlength="4" spellcheck="false" autocapitalize="characters" aria-label="Pairing code">
+            <button class="chip primary" type="submit">Connect</button>
+          </div>
+          <p id="pair-note" class="pair-note"></p>
+        </form>
+      </div>
+      <div id="live" class="live" hidden>
+        <div class="brand big">bolo<span class="dot"></span></div>
+        <div id="phase" class="phase"></div>
+        <p id="said" class="said"></p>
+        <p id="reply" class="reply"></p>
+      </div>
+    </aside>
+    <div class="device">
+      <main id="view"></main>
+      <div id="ghost" class="ghost" aria-hidden="true">
+        <div class="g-head"></div>
+        <div class="g-totals"><i></i><i></i></div>
+        <div class="g-chips"><i></i><i></i><i></i><i></i></div>
+        <div class="g-card"></div><div class="g-card"></div><div class="g-card"></div>
+      </div>
+      <div id="status" class="status"></div>
+      <div id="toast" class="toast"></div>
+      <div id="scan" class="scan"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="store.js"></script>
+  <script>window.BOLO_BOARD = true;</script>
+  <script src="app.js"></script>
+  <script src="stage.js"></script>
+</body>
+</html>

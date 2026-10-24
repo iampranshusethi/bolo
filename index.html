@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bolo</title>
+  <meta name="description" content="Speak it. Snap it. It's an app. Build your own app by talking, in your own language.">
+  <meta name="theme-color" content="#F6F0E4">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Sans+Gurmukhi:wght@400;600;700&family=Noto+Sans+Oriya:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="desk">
+    <aside class="desk-side">
+      <div class="brand huge">bolo<span class="dot"></span></div>
+      <p class="desk-line">Speak it. Snap it.<br>It's an app.</p>
+      <p class="desk-note">Software for the next 500 million Indians, in their own language.</p>
+    </aside>
+    <div class="device">
+      <main id="view"></main>
+      <div id="ghost" class="ghost" aria-hidden="true">
+        <div class="g-head"></div>
+        <div class="g-totals"><i></i><i></i></div>
+        <div class="g-chips"><i></i><i></i><i></i><i></i></div>
+        <div class="g-card"></div><div class="g-card"></div><div class="g-card"></div>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+      <div id="toast" class="toast" aria-live="polite"></div>
+      <div id="scan" class="scan"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="store.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
