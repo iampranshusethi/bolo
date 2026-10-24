@@ -6,6 +6,30 @@ No-code tools were built for people who can't code. Bolo is built for people who
 
 A milkman, a tuition teacher, a tailor or a kirana owner describes the app they need, out loud, in their own language, or photographs the notebook they already keep. Seconds later they have a working app in their own script: records, totals, dues, search and filters, all of it filled in and kept up to date by voice.
 
+![Bolo home screen: speak or snap to build an app, with your apps as icons](docs/screenshots/1-home.png)
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/2-milk.png" alt="Milk register built from a photo of a handwritten notebook"></td>
+    <td><img src="docs/screenshots/3-tuition.png" alt="Tuition fee tracker built and filled entirely by voice"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>दूध रजिस्टर</b>: built from a photo of a handwritten register</td>
+    <td align="center"><b>ट्यूशन ट्रैकर</b>: built and filled entirely by voice</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/4-tailor.png" alt="Kannada tailor order book with balance due"></td>
+    <td><img src="docs/screenshots/5-quiz.png" alt="Quiz app that Bolo wrote as code"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>ಟೈಲರ್ ಆರ್ಡರ್‌ಗಳು</b>: the same idea in Kannada</td>
+    <td align="center"><b>सामान्य ज्ञान क्विज़</b>: not record-keeping, so Bolo wrote it as code</td>
+  </tr>
+</table>
+
+![Stage mode: the big screen mirrors the presenter's phone with live captions](docs/screenshots/6-stage.png)
+<p align="center"><i>Stage mode: after pairing with a code, any big screen mirrors the phone, with live captions and Bolo's voice for the room.</i></p>
+
 ## What it does
 
 - **Speak an app into existence.** "मुझे 20 घरों का दूध का हिसाब रखना है" becomes a milk-delivery app with litres, rate, amount and paid/unpaid, plus a "total due" card.

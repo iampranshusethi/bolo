@@ -176,7 +176,8 @@ body.busy .mic { animation: breathe 1.4s ease-in-out infinite; pointer-events: n
 .dock .mic .count { bottom: auto; top: -20px; }
 .dock.changing { box-shadow: 0 0 0 3px var(--indigo), var(--shadow); }
 .subdock { position: fixed; left: 0; right: 0; bottom: calc(max(12px, env(safe-area-inset-bottom)) + 124px); display: flex; justify-content: center; gap: 2px; z-index: 5; pointer-events: none; }
-.subdock .link { pointer-events: auto; background: color-mix(in srgb, var(--paper) 90%, transparent); }
+.subdock:not(:empty) { width: max-content; margin: 0 auto; padding: 4px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); pointer-events: auto; }
+.subdock .link { pointer-events: auto; border-radius: 999px; }
 .subdock .link.active { background: var(--indigo); }
 
 /* ---------- building preview, status, toast, sheet ---------- */
