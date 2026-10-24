@@ -177,3 +177,15 @@ A log of meaningful decisions made while building this project, with the reasoni
 **Decision:** The GitHub repository and README don't contain the deployed address.
 **Why:** User's call: there are limited Sarvam credits and no usage limit (D17), so the live app shouldn't be advertised publicly.
 **Trade-off accepted:** Anyone reviewing the code has to run it themselves or be given the link directly.
+
+## D32. Example apps preloaded on first open
+**Decision:** `presets.js` holds four example apps: the milk register built from the notebook photo, the tuition tracker built by voice (Aarav, Siya, Kabir, Meera), a Kannada tailor order book, and the Hindi GK quiz. The first time Bolo opens on a device (no `bolo.seeded` flag in the browser), `seedPresets()` in `app.js` copies each one into the launcher as a new app with a fresh id, then sets the flag. The board never seeds.
+**Why:** The presenter can show finished apps straight away, in two languages and both build paths (record-keeping and code), without depending on live API calls for every example. Fresh ids per device mean two phones never edit the same saved app.
+**Trade-off accepted:** Every new visitor gets the same four examples, which they can ignore or keep. The quiz preset is a corrected version of the one generated in testing: the generated one marked every answer wrong (it read the wrong value and compared Hindi answers with English ones). The tailor preset uses the tested Kannada labels with cleaned field keys, a balance formula and three sample orders.
+
+## D33. Two bugs found while preparing presets
+**Decision:**
+- Supabase saves are now debounced per app, not with one shared timer.
+- Messages from a generated-code app are matched against the frame currently on screen, not a reference captured when the frame finished loading.
+**Why:** With one shared timer, saving several apps quickly (as seeding does) sent only the last one to Supabase. Code apps that call `window.bolo.load()` while starting up (the quiz does) never got an answer and showed a blank screen. Both verified fixed: all four presets reach Supabase, and the quiz renders and scores.
+**Trade-off accepted:** None meaningful.

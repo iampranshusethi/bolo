@@ -683,20 +683,22 @@ function withBridge(html) {
   return /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, (m) => m + BRIDGE) : BRIDGE + html;
 }
 
-let frameWindow = null;
 let frameLoadedAt = 0;
 let frameReadonly = false;
 function codeFrame(app, readonly) {
   const frame = h("iframe", { class: "codeapp", sandbox: "allow-scripts allow-forms allow-modals", title: app.spec.title || "app" });
   frame.srcdoc = withBridge(app.spec.html);
-  frame.addEventListener("load", () => { frameWindow = frame.contentWindow; frameLoadedAt = Date.now(); });
+  frameLoadedAt = Date.now();
+  frame.addEventListener("load", () => { frameLoadedAt = Date.now(); });
   frameReadonly = readonly;
   return h("div", { class: "codewrap" }, frame);
 }
 
 window.addEventListener("message", async (e) => {
   const d = e.data || {};
-  if (!d.bolo || !state.app || e.source !== frameWindow) return;
+  // Matched against the frame on screen, so an app asking for its data while still starting up gets an answer
+  const frame = document.querySelector("iframe.codeapp");
+  if (!d.bolo || !state.app || !frame || e.source !== frame.contentWindow) return;
   if (d.bolo === "load") e.source.postMessage({ boloReply: d.id, value: state.app.state ?? null }, "*");
   else if (d.bolo === "save" && !frameReadonly) { state.app.state = d.value; Store.put(state.app); }
   else if (d.bolo === "error" && !frameReadonly) {
@@ -738,7 +740,19 @@ async function route() {
   render();
 }
 
+// First open on a device: copy the example apps into the launcher (D32).
+// Each gets a fresh id, so two phones never edit the same saved app.
+function seedPresets() {
+  try { if (localStorage.getItem("bolo.seeded") || !window.BOLO_PRESETS) return; } catch { return; }
+  [...window.BOLO_PRESETS].reverse().forEach((p) => Store.put({
+    id: uid() + uid().slice(0, 8), spec: JSON.parse(JSON.stringify(p.spec)), rows: JSON.parse(JSON.stringify(p.rows || [])),
+    versions: [], lang: p.lang, state: p.state ?? null,
+  }));
+  try { localStorage.setItem("bolo.seeded", "1"); } catch {}
+}
+
 if (!window.BOLO_BOARD) {
+  seedPresets();
   window.addEventListener("hashchange", route);
   setLang(state.lang);
   route();

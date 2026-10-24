@@ -35,14 +35,14 @@ const Store = (() => {
     return local.get(id);
   }
 
-  let timer = null;
+  const timers = {};
   function put(app) {
     local.put(app);
     remember(app);
     if (!sb) return;
-    // Entries can arrive quickly one after another; send the latest state once things settle
-    clearTimeout(timer);
-    timer = setTimeout(() => {
+    // Entries can arrive quickly one after another; send each app's latest state once things settle
+    clearTimeout(timers[app.id]);
+    timers[app.id] = setTimeout(() => {
       sb.rpc("save_app", { p_id: app.id, p_spec: app.spec, p_rows: app.rows, p_versions: app.versions, p_lang: app.lang })
         .then(({ error }) => error && console.warn("save failed", error.message));
     }, 400);

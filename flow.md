@@ -8,6 +8,7 @@ How code execution moves through Bolo: the entry points, the order things run in
 |---|---|
 | `index.html` | **Entry point for the product** (`/`). Loads the scripts below in order. |
 | `stage.html` | **Entry point for presentation mode** (`/stage`). Same scripts plus `stage.js`. |
+| `presets.js` | Four example apps (`window.BOLO_PRESETS`) copied into the launcher on a device's first open. |
 | `config.js` | Public Supabase URL and publishable key → `window.BOLO_CONFIG`. |
 | `i18n.js` | Bolo's interface text in 11 languages (`t()`), and `langFromScript()` for typed text. |
 | `store.js` | `Store`: saves and loads apps (Supabase + browser copy), and opens stage rooms. |
@@ -23,9 +24,10 @@ How code execution moves through Bolo: the entry points, the order things run in
 ## Page start-up (`index.html`)
 
 1. Google Fonts (Unbounded + Noto Sans scripts) and `style.css` load.
-2. `supabase-js` loads from the CDN, then `config.js` → `i18n.js` → `store.js` → `app.js`, in that order.
+2. `supabase-js` loads from the CDN, then `config.js` → `i18n.js` → `store.js` → `presets.js` → `app.js`, in that order.
 3. `store.js` creates the Supabase client if `BOLO_CONFIG` has a URL and key; otherwise everything stays in the browser.
-4. `app.js` picks the language (saved choice, else the phone's language, else Hindi), reads `?room=` (stage mode) and calls `route()`.
+4. `app.js` runs `seedPresets()`: on a device's first open it copies each preset into a new app (fresh id) via `Store.put`, then sets `bolo.seeded`.
+   It then picks the language (saved choice, else the phone's language, else Hindi), calls `route()`, and rejoins a presenting session if one was active.
 5. `route()` reads the URL hash:
    - `#/app/<id>` → `Store.get(id)` (Supabase `get_app`, falling back to the browser copy) → `renderApp()`.
    - anything else → `renderHome()`: the launcher (your apps as icons), the big mic, and starter ideas.
